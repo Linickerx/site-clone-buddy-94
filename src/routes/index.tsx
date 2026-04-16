@@ -1,7 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Brain, Heart, Compass, Users, ArrowRight } from "lucide-react";
+import { Brain, Heart, Compass, Users, ArrowRight, Trash2 } from "lucide-react";
+import { getArticles, deleteArticle, type Article } from "@/lib/articles";
+import { useAuth } from "@/lib/auth";
+import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -105,28 +108,19 @@ function TopicsSection() {
   );
 }
 
-const articles = [
-  {
-    title: "O que é dependência emocional e como identificar",
-    excerpt: "Entenda os sinais de que você pode estar em uma relação de dependência emocional e os primeiros passos para a mudança.",
-    tag: "Dependência Emocional",
-    date: "10 Abr 2026",
-  },
-  {
-    title: "Psicanálise e o inconsciente: uma introdução",
-    excerpt: "Descubra como a teoria psicanalítica pode ajudar a compreender comportamentos que parecem inexplicáveis.",
-    tag: "Psicanálise",
-    date: "3 Abr 2026",
-  },
-  {
-    title: "Relacionamentos tóxicos: rompendo o ciclo",
-    excerpt: "Aprenda a identificar padrões destrutivos e a construir relações baseadas em respeito e autonomia.",
-    tag: "Relacionamentos",
-    date: "28 Mar 2026",
-  },
-];
-
 function ArticlesSection() {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const { isLoggedIn } = useAuth();
+
+  useEffect(() => {
+    setArticles(getArticles());
+  }, []);
+
+  const handleDelete = (id: string) => {
+    deleteArticle(id);
+    setArticles(getArticles());
+  };
+
   return (
     <section id="artigos" className="py-24">
       <div className="max-w-5xl mx-auto px-6">
@@ -134,9 +128,18 @@ function ArticlesSection() {
         <div className="grid md:grid-cols-3 gap-6">
           {articles.map((article) => (
             <article
-              key={article.title}
-              className="group bg-card border border-border rounded-2xl p-6 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 cursor-pointer"
+              key={article.id}
+              className="group bg-card border border-border rounded-2xl p-6 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 relative"
             >
+              {isLoggedIn && (
+                <button
+                  onClick={() => handleDelete(article.id)}
+                  className="absolute top-4 right-4 p-1.5 rounded-full text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors opacity-0 group-hover:opacity-100"
+                  title="Excluir artigo"
+                >
+                  <Trash2 size={14} />
+                </button>
+              )}
               <span className="inline-block text-[10px] font-semibold tracking-wider uppercase text-primary bg-primary/8 px-3 py-1 rounded-full mb-4">
                 {article.tag}
               </span>

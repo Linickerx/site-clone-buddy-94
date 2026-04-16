@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn, LogOut, PenLine } from "lucide-react";
+import { useAuth } from "@/lib/auth";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isLoggedIn, logout } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -44,6 +46,32 @@ export function Header() {
           <a href="#contato" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Contato
           </a>
+          {isLoggedIn ? (
+            <div className="flex items-center gap-3">
+              <Link
+                to="/novo-artigo"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+              >
+                <PenLine size={15} />
+                Novo Artigo
+              </Link>
+              <button
+                onClick={logout}
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <LogOut size={15} />
+                Sair
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+            >
+              <LogIn size={15} />
+              Login
+            </Link>
+          )}
         </nav>
       </div>
 
@@ -61,6 +89,20 @@ export function Header() {
           <a href="#contato" className="block text-sm font-medium text-muted-foreground" onClick={() => setMenuOpen(false)}>
             Contato
           </a>
+          {isLoggedIn ? (
+            <>
+              <Link to="/novo-artigo" className="block text-sm font-medium text-primary" onClick={() => setMenuOpen(false)}>
+                ✏️ Novo Artigo
+              </Link>
+              <button onClick={() => { logout(); setMenuOpen(false); }} className="block text-sm font-medium text-muted-foreground">
+                Sair
+              </button>
+            </>
+          ) : (
+            <Link to="/login" className="block text-sm font-medium text-primary" onClick={() => setMenuOpen(false)}>
+              Login
+            </Link>
+          )}
         </nav>
       )}
     </header>
