@@ -1,4 +1,5 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { AuthProvider } from "@/lib/auth";
 
 import appCss from "../styles.css?url";
 
@@ -32,11 +33,8 @@ export const Route = createRootRoute({
       { title: "Maia Boaro — Psicanalista e Psicopedagoga" },
       { name: "description", content: "Psicanálise, autoconhecimento e dependência emocional. Um espaço seguro para compreender os padrões inconscientes." },
       { property: "og:title", content: "Maia Boaro — Psicanalista e Psicopedagoga" },
-      { property: "og:description", content: "Psicanálise, autoconhecimento e dependência emocional. Um espaço seguro para compreender os padrões inconscientes." },
+      { property: "og:description", content: "Psicanálise, autoconhecimento e dependência emocional." },
       { property: "og:type", content: "website" },
-      { name: "twitter:title", content: "Maia Boaro — Psicanalista e Psicopedagoga" },
-      { name: "twitter:description", content: "Psicanálise, autoconhecimento e dependência emocional. Um espaço seguro para compreender os padrões inconscientes." },
-      { name: "twitter:card", content: "summary" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -62,5 +60,9 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  return <Outlet />;
+  return (
+    <AuthProvider>
+      <Outlet />
+    </AuthProvider>
+  );
 }
