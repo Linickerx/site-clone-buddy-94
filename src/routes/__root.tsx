@@ -1,7 +1,6 @@
 import { Outlet, Link, createRootRoute } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth";
 
-import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
   return (
