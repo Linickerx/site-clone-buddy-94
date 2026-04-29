@@ -12,35 +12,26 @@ export const Route = createFileRoute("/")({
 
 function HeroSection() {
   return (
-    <section className="relative min-h-[85vh] flex items-center">
-      <div className="max-w-5xl mx-auto px-6 py-24 w-full">
-        <div className="max-w-2xl">
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-primary bg-primary/8 px-4 py-2 rounded-full mb-8">
-            Psicanálise & Autoconhecimento
-          </span>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight">
-            Liberte-se da{" "}
-            <span className="text-primary">dependência emocional</span>
-          </h1>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg font-light">
-            Um espaço seguro para compreender os padrões inconscientes que regem seus relacionamentos e encontrar o caminho para a autonomia afetiva.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a
-              href="#artigos"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium text-sm hover:bg-primary/90 transition-colors"
-            >
-              Explorar Artigos
-              <ArrowRight size={16} />
-            </a>
-            <a
-              href="#temas"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-foreground font-medium text-sm hover:bg-muted transition-colors"
-            >
-              Saiba Mais
-            </a>
-          </div>
-        </div>
+    <section className="relative min-h-screen flex flex-col items-center justify-end pb-24 lg:pb-32 overflow-hidden">
+      {/* Imagem de Fundo Expandida */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/profile.jpeg"
+          alt="Foto de Perfil"
+          className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-[2000ms] ease-out"
+        />
+        {/* Overlay sutil para garantir a leitura do botão */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+      </div>
+
+      {/* Apenas o Botão */}
+      <div className="relative z-10">
+        <a
+          href="#agendar"
+          className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-white/90 backdrop-blur-sm text-black font-bold hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.2)] text-lg uppercase tracking-wide"
+        >
+          Agendar Sessão
+        </a>
       </div>
     </section>
   );
