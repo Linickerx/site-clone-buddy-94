@@ -27,7 +27,9 @@ function HeroSection() {
       {/* Apenas o Botão */}
       <div className="relative z-10">
         <a
-          href="#agendar"
+          href="https://wa.me/555496931020?text=ola,%20gostaria%20de%20agendar%20uma%20sess%C3%A3o"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-white/90 backdrop-blur-sm text-black font-bold hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.2)] text-lg uppercase tracking-wide"
         >
           Agendar Sessão
